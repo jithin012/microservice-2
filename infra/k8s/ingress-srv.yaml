@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernets.io/ingress.class: nginx
+    nginx.ingress.kubernets.io/use-regex: 'true'
+spec:
+  rules:
+    - host: ticketing.dev       # add ticking.dev into /etc/hosts
+      http:
+        paths:
+          - path: /api/users/?(.*)
+            backend:
+              serviceName: auth-srv
+              servicePort: 3000
